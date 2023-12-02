@@ -1,4 +1,4 @@
-console.log("hello");
+console.log("This is Part one solution");
 
 // read the file line by line
 // store each line in an string array
