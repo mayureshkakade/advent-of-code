@@ -61,20 +61,17 @@ const getHandType = (hand) => {
 
   const keys = Object.keys(cMap);
   const len = keys.length;
-  const key0 = keys[0];
-  const key1 = keys[1];
-  const key2 = keys[2];
 
   if (len === 1) {
     return HAND_TYPES.FIVE;
   } else if (len === 2) {
-    if (cMap[key0] === 4 || cMap[key1] === 4) {
+    if (keys.some((k) => cMap[k] === 4)) {
       return HAND_TYPES.FOUR;
     } else {
       return HAND_TYPES.FULL;
     }
   } else if (len === 3) {
-    if (cMap[key0] === 3 || cMap[key1] === 3 || cMap[key2] === 3) {
+    if (keys.some((k) => cMap[k] === 3)) {
       return HAND_TYPES.THREE;
     } else {
       return HAND_TYPES.TWO;
