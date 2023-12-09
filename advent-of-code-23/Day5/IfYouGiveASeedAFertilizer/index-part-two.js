@@ -85,9 +85,7 @@ groups.forEach((g) => {
   for (const element of values2) {
     const v = element;
     let valueRanges = [v];
-    const ranges = map.filter((m) =>
-      overlap(m.sourceStart, m.sourceStart + m.range, v[0], v[1])
-    );
+    const ranges = map;
     for (const element of ranges) {
       let range = element;
       let newRanges = [];
@@ -119,10 +117,8 @@ groups.forEach((g) => {
       : v;
   });
 });
+console.log({ values2 });
 
 console.log(
-  `Part 2: ${values2.reduce(
-    (min, v) => Math.min(min, Math.min(v[0], v[1])),
-    Number.MAX_VALUE
-  )}`
+  `Part 2: ${values2.reduce((min, v) => Math.min(min, v[0]), Number.MAX_VALUE)}`
 );
