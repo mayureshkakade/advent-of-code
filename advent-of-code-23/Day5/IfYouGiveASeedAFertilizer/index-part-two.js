@@ -12,6 +12,8 @@ let values = lines[0]
 
 const groups = input.split("\n\n").slice(1);
 
+console.log({ groups });
+
 groups.forEach((g) => {
   const map = g
     .split("\n")
@@ -24,6 +26,8 @@ groups.forEach((g) => {
         range: parseInt(parts[2], 10),
       };
     });
+
+  console.log({ map });
 
   values = values.map((v) => {
     const range = map.find(
@@ -47,6 +51,8 @@ let values2 = values
     return ranges;
   }, Array.from({ length: values.length / 2 }).fill([]))
   .map((v) => [v[0], v[0] + v[1] - 1]);
+
+console.log({ values2 });
 
 const overlap = (mapStart, mapEnd, valueStart, valueEnd) =>
   valueStart < mapEnd && valueEnd >= mapStart;
@@ -76,28 +82,30 @@ groups.forEach((g) => {
     });
 
   let newValues2 = [];
-  for (let value2 = 0; value2 < values2.length; value2++) {
-    const v = values2[value2];
+  for (const element of values2) {
+    const v = element;
     let valueRanges = [v];
     const ranges = map.filter((m) =>
       overlap(m.sourceStart, m.sourceStart + m.range, v[0], v[1])
     );
-    for (let r = 0; r < ranges.length; r++) {
-      let range = ranges[r];
+    for (const element of ranges) {
+      let range = element;
       let newRanges = [];
-      for (let v2 = 0; v2 < valueRanges.length; v2++)
+      for (const element of valueRanges)
         newRanges.push(
           rangeSplit(
             range.sourceStart,
             range.sourceStart + range.range,
-            valueRanges[v2][0],
-            valueRanges[v2][1]
+            element[0],
+            element[1]
           )
         );
       valueRanges = newRanges.flat();
     }
     newValues2 = [...newValues2, ...valueRanges];
   }
+
+  console.log({ newValues2 });
 
   values2 = newValues2.map((v) => {
     const range = map.find(
